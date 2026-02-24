@@ -1,0 +1,40 @@
+{
+  "name": "domain-checker",
+  "version": "1.0.0",
+  "description": "CLI tool to check domain name availability using DNS resolution and whois lookups. Zero dependencies.",
+  "keywords": [
+    "domain",
+    "domain-checker",
+    "availability",
+    "whois",
+    "dns",
+    "cli"
+  ],
+  "author": "cmrabdu",
+  "license": "MIT",
+  "homepage": "https://github.com/cmrabdu/domain-chekcer#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cmrabdu/domain-chekcer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cmrabdu/domain-chekcer/issues"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "main": "domain-checker.js",
+  "bin": {
+    "domain-checker": "./domain-checker.js"
+  },
+  "scripts": {
+    "start": "node domain-checker.js",
+    "example": "node domain-checker.js -f examples/domains.example.txt"
+  },
+  "files": [
+    "domain-checker.js",
+    "examples/",
+    "README.md",
+    "LICENSE"
+  ]
+}

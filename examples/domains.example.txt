@@ -1,0 +1,23 @@
+# domain-checker — example input file
+# One base name per line. Lines starting with # are ignored.
+# Run with: node domain-checker.js -f examples/domains.example.txt
+
+# Tech / SaaS style names
+launchpad
+buildfast
+shipfast
+notifyapp
+reviewly
+taskflow
+draftly
+
+# Short & punchy
+nexus
+velo
+lumio
+strio
+
+# Creative
+everly
+novaapp
+zephyrapp
