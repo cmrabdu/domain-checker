@@ -1,5 +1,5 @@
 {
-  "name": "domain-checker",
+  "name": "@cmrabdu/domain-checker",
   "version": "1.0.0",
   "description": "CLI tool to check domain name availability using DNS resolution and whois lookups. Zero dependencies.",
   "keywords": [
