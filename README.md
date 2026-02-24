@@ -2,6 +2,7 @@
 
 > A lightweight CLI tool to check domain name availability using **DNS resolution** and **whois lookups**. Zero external dependencies.
 
+![npm](https://img.shields.io/npm/v/domain-checker)
 ![Node.js](https://img.shields.io/badge/node-%3E%3D14-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Zero dependencies](https://img.shields.io/badge/dependencies-zero-success)
@@ -32,19 +33,25 @@
 
 ## Installation
 
-### Run directly (no install)
+### Use instantly with npx (no install needed)
+
+```bash
+npx domain-checker myapp mysite
+```
+
+### Install globally
+
+```bash
+npm install -g domain-checker
+domain-checker myapp mysite
+```
+
+### Run from source
 
 ```bash
 git clone https://github.com/cmrabdu/domain-chekcer.git
 cd domain-chekcer
 node domain-checker.js myapp mysite
-```
-
-### Install globally via npm
-
-```bash
-npm install -g .
-domain-checker myapp mysite
 ```
 
 ---
