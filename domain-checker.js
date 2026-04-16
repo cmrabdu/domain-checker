@@ -172,17 +172,22 @@ async function checkDomain(fullDomain) {
     const out = raw.toLowerCase();
     const domainKey = fullDomain.toLowerCase();
 
+    // Signals that strongly indicate availability — checked FIRST
+    // (EURid/.eu includes "domain: x.eu" and "created:" in availability responses,
+    //  so free signals must take priority over hasDomainRecord and takenSignals)
+    const freeSignals = [
+      'no match for', 'not found', 'no data found',
+      'no entries found', 'status: free', 'is available', 'domain not found',
+      'status: available',  // EURid (.eu)
+    ];
+    for (const s of freeSignals) if (out.includes(s)) return { domain: fullDomain, available: true, method: 'whois:free' };
+
     // Explicit domain record found → taken
     const hasDomainRecord =
       out.includes(`domain name: ${domainKey}`) ||
       out.includes(`domain: ${domainKey}`);
     if (hasDomainRecord) return { domain: fullDomain, available: false, method: 'whois:record' };
 
-    // Signals that strongly indicate availability
-    const freeSignals = [
-      'no match for', 'not found', 'no data found',
-      'no entries found', 'status: free', 'is available', 'domain not found',
-    ];
     // Signals that strongly indicate the domain is registered
     const takenSignals = ['registrar:', 'creation date:', 'created:'];
 
