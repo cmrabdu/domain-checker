@@ -169,18 +169,19 @@ async function checkDomain(fullDomain) {
       timeout: 8000,
       encoding: 'utf8',
     });
-    const out = raw.toLowerCase();
+    // Normalize tabs → spaces (DNS Belgium/.be uses tab-separated fields)
+    const out = raw.toLowerCase().replace(/\t/g, ' ');
     const domainKey = fullDomain.toLowerCase();
 
     // Signals that strongly indicate availability — checked FIRST
-    // (EURid/.eu includes "domain: x.eu" and "created:" in availability responses,
-    //  so free signals must take priority over hasDomainRecord and takenSignals)
+    // (DNS Belgium/.be and EURid/.eu echo the domain name even for available
+    //  domains, so free signals must take priority over hasDomainRecord)
     const freeSignals = [
       'no match for', 'not found', 'no data found',
       'no entries found', 'status: free', 'is available', 'domain not found',
-      'status: available',  // EURid (.eu)
+      'status: available',  // DNS Belgium (.be), EURid (.eu)
     ];
-    for (const s of freeSignals) if (out.includes(s)) return { domain: fullDomain, available: true, method: 'whois:free' };
+    for (const s of freeSignals) if (out.includes(s)) return { domain: fullDomain, available: true,  method: 'whois:free' };
 
     // Explicit domain record found → taken
     const hasDomainRecord =
@@ -190,8 +191,6 @@ async function checkDomain(fullDomain) {
 
     // Signals that strongly indicate the domain is registered
     const takenSignals = ['registrar:', 'creation date:', 'created:'];
-
-    for (const s of freeSignals)  if (out.includes(s)) return { domain: fullDomain, available: true,  method: 'whois:free' };
     for (const s of takenSignals) if (out.includes(s)) return { domain: fullDomain, available: false, method: 'whois:registrar' };
 
     // DNS clean + whois returned no registrar info (common for .app/.io TLDs)
